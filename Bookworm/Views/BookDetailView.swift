@@ -13,6 +13,15 @@ struct BookDetailView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.dismiss) private var dismiss
     
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
+        return dateFormatter
+    }()
+    
     @State private var deleteAlertIsPresented = false
     
     init(for book: Book) {
@@ -38,7 +47,7 @@ struct BookDetailView: View {
                 }
             }
             
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 20) {
                 if let title = book.title, let author = book.author {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(title)
@@ -49,13 +58,23 @@ struct BookDetailView: View {
                     }
                 }
                 
-                if let rating = book.rating {
-                    Rating(rating: .constant(Int(rating)))
-                }
-                
                 if let review = book.review {
                     Text(review)
                 }
+                
+                Group {
+                    if let rating = book.rating {
+                        Rating(rating: .constant(Int(rating)))
+                            .font(.title2)
+                    }
+                    
+                    if let createdAt = book.createdAt {
+                        Text("Added on \(dateFormatter.string(from: createdAt))")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
             .padding(.horizontal)
         }

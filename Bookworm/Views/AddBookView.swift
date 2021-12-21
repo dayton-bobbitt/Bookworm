@@ -79,6 +79,7 @@ struct AddBookView: View {
         book.genre = self.genre
         book.rating = Int16(self.rating)
         book.review = self.review
+        book.createdAt = Date.now
         
         do {
             try managedObjectContext.save()
