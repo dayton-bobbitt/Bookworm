@@ -8,25 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
-    @FetchRequest(sortDescriptors: []) private var books: FetchedResults<Book>
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.title)
+    ]) private var books: FetchedResults<Book>
     
     @State private var addBookIsPresented = false
     
     var body: some View {
         NavigationView {
-            List(books) { book in
-                NavigationLink {
-                    BookDetailView(for: book)
-                } label: {
-                    BookListItem(
-                        title: book.title!,
-                        author: book.author!,
-                        rating: book.rating
-                    )
+            List {
+                ForEach(books) { book in
+                    NavigationLink {
+                        BookDetailView(for: book)
+                    } label: {
+                        BookListItem(
+                            title: book.title!,
+                            author: book.author!,
+                            rating: book.rating
+                        )
+                    }
                 }
+                .onDelete(perform: deleteBook(at:))
             }
             .navigationTitle("Bookworm")
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    EditButton()
+                }
+                
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         self.addBookIsPresented = true
@@ -40,6 +50,15 @@ struct ContentView: View {
             }
         }
         .navigationViewStyle(.stack)
+    }
+    
+    private func deleteBook(at offsets: IndexSet) {
+        for offset in offsets {
+            let book = books[offset]
+            managedObjectContext.delete(book)
+        }
+        
+        try? managedObjectContext.save()
     }
 }
 

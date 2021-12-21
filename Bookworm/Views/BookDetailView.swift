@@ -10,6 +10,11 @@ import SwiftUI
 struct BookDetailView: View {
     private let book: Book
     
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var deleteAlertIsPresented = false
+    
     init(for book: Book) {
         self.book = book
     }
@@ -55,5 +60,29 @@ struct BookDetailView: View {
             .padding(.horizontal)
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    self.deleteAlertIsPresented = true
+                } label: {
+                    Label("Delete book", systemImage: "trash")
+                        .font(.subheadline)
+                }
+            }
+        }
+        .alert("Delete book", isPresented: $deleteAlertIsPresented) {
+            Button("Delete", role: .destructive, action: deleteBook)
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure?")
+        }
+    }
+    
+    private func deleteBook() {
+        managedObjectContext.delete(book)
+        
+        try? managedObjectContext.save()
+        
+        dismiss()
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddBookView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @State private var title = ""
     @State private var author = ""
@@ -43,7 +43,7 @@ struct AddBookView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.dismiss()
                     } label: {
                         Text("Cancel")
                     }
@@ -82,7 +82,7 @@ struct AddBookView: View {
         
         do {
             try managedObjectContext.save()
-            self.presentationMode.wrappedValue.dismiss()
+            self.dismiss()
         } catch {
             print("Failed to save book to CoreData: \(error.localizedDescription)")
             self.saveError.toggle()
