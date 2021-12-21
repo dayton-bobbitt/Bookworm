@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationView {
             List(books) { book in
                 NavigationLink {
-                    Text(book.title ?? "Unknown title")
+                    BookDetailView(for: book)
                 } label: {
                     BookListItem(
                         title: book.title!,

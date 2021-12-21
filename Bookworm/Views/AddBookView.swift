@@ -34,14 +34,8 @@ struct AddBookView: View {
                 }
                 
                 Section("Review") {
-                    Rating(rating: $rating)
                     TextEditor(text: $review)
-                        .overlay(
-                            Text("Comments (optional)")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .foregroundColor(Color(uiColor: UIColor.systemGray3))
-                                .allowsHitTesting(false)
-                        )
+                    Rating(rating: $rating)
                 }
             }
             .onSubmit(self.saveBook)

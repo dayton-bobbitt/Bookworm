@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9900561827721D5000B5F653 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9900561727721D5000B5F653 /* BookDetailView.swift */; };
 		992B1532276C26DF003A7548 /* BookwormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992B1531276C26DF003A7548 /* BookwormApp.swift */; };
 		992B1534276C26DF003A7548 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992B1533276C26DF003A7548 /* ContentView.swift */; };
 		992B1536276C26E0003A7548 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992B1535276C26E0003A7548 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9900561727721D5000B5F653 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		992B152E276C26DF003A7548 /* Bookworm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookworm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		992B1531276C26DF003A7548 /* BookwormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookwormApp.swift; sourceTree = "<group>"; };
 		992B1533276C26DF003A7548 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				99E4EAC5276D556200187A4D /* AddBookView.swift */,
+				9900561727721D5000B5F653 /* BookDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9900561827721D5000B5F653 /* BookDetailView.swift in Sources */,
 				99E4EACB276E2A7B00187A4D /* BookListItem.swift in Sources */,
 				99E4EAC9276E1E9500187A4D /* Rating.swift in Sources */,
 				992B1534276C26DF003A7548 /* ContentView.swift in Sources */,
