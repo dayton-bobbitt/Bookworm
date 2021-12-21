@@ -8,27 +8,42 @@
 import SwiftUI
 
 struct BookListItem: View {
-    var title: String
-    var author: String
-    var rating: Int16
+    private let book: Book
     
-    var body: some View {
-        HStack(spacing: 8) {
-            Text(emojiRating)
-                .font(.title3)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(self.title)
-                    .font(.headline)
-                Text(self.author)
-                    .font(.subheadline)
-            }
-        }
-        .padding(.vertical, 6)
+    init(for book: Book) {
+        self.book = book
     }
     
-    private var emojiRating: String {
-        switch self.rating {
+    var body: some View {
+        if let title = book.title, let author = book.author {
+            HStack(spacing: 8) {
+                if let rating = book.rating {
+                    Text(emojiRating(for: rating))
+                        .font(.title3)
+                }
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .font(.headline)
+                    Text(author)
+                        .font(.subheadline)
+                }
+            }
+            .padding(.vertical, 6)
+            .foregroundColor(foregroundColor(for: book.rating))
+        }
+    }
+    
+    private func foregroundColor(for rating: Int16?) -> Color {
+        if let rating = rating, rating > 1 {
+            return .primary
+        }
+        
+        return .red
+    }
+    
+    private func emojiRating(for rating: Int16) -> String {
+        switch rating {
         case 1:
             return "☹️"
         case 2:
@@ -39,18 +54,6 @@ struct BookListItem: View {
             return "🙂"
         default:
             return "🥰"
-        }
-    }
-}
-
-struct BookListItem_Previews: PreviewProvider {
-    static var previews: some View {
-        List {
-            BookListItem(title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", rating: 1)
-            BookListItem(title: "Harry Potter and the Chamber of Secrets", author: "J.K. Rowling", rating: 2)
-            BookListItem(title: "Harry Potter and the Prisoner of Azkaban", author: "J.K. Rowling", rating: 3)
-            BookListItem(title: "Harry Potter and the Goblet of Fire", author: "J.K. Rowling", rating: 4)
-            BookListItem(title: "Harry Potter and the Order of the Phoenix", author: "J.K. Rowling", rating: 5)
         }
     }
 }

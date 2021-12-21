@@ -22,11 +22,7 @@ struct ContentView: View {
                     NavigationLink {
                         BookDetailView(for: book)
                     } label: {
-                        BookListItem(
-                            title: book.title!,
-                            author: book.author!,
-                            rating: book.rating
-                        )
+                        BookListItem(for: book)
                     }
                 }
                 .onDelete(perform: deleteBook(at:))
