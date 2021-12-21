@@ -19,20 +19,16 @@ struct Rating: View {
     var offColor = Color(uiColor: UIColor.systemGray3)
     
     var body: some View {
-        HStack {
-            Text("Rating")
-            Spacer()
-            HStack(spacing: 4) {
-                ForEach(1..<self.maxRating + 1) { possibleRating in
-                    // TODO: accessibility features
-                    image(for: possibleRating)
-                        .foregroundColor(color(for: possibleRating))
-                        .onTapGesture {
-                            withAnimation {                            
-                                self.rating = possibleRating
-                            }
+        HStack(spacing: 4) {
+            ForEach(1..<self.maxRating + 1) { possibleRating in
+                // TODO: accessibility features
+                image(for: possibleRating)
+                    .foregroundColor(color(for: possibleRating))
+                    .onTapGesture {
+                        withAnimation {
+                            self.rating = possibleRating
                         }
-                }
+                    }
             }
         }
     }
